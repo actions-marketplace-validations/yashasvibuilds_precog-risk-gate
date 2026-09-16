@@ -1,0 +1,5 @@
+// Critical auth update without tests
+model UserSession {
+  id        String   @id
+  secretKey String
+}

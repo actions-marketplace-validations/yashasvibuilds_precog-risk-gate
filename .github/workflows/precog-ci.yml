@@ -1,0 +1,17 @@
+name: PreCog Deployment Risk Gate
+
+on:
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  audit-risk:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Run PreCog Risk Gate
+        uses: ./

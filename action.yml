@@ -1,0 +1,27 @@
+name: 'PreCog Deployment Risk Gate'
+description: 'Automated fail-fast deployment gate blocking high-risk deployments'
+author: 'yashasvibuilds'
+
+branding:
+  icon: 'shield'
+  color: 'red'
+
+inputs:
+  risk-threshold:
+    description: 'Score limit before failing the deployment'
+    required: false
+    default: '60'
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.11'
+
+    - name: Run Risk Engine
+      run: python ${{ github.action_path }}/check_risk.py
+      shell: bash
+      env:
+        PRECOG_THRESHOLD: ${{ inputs.risk-threshold }}
